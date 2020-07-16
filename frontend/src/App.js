@@ -1,7 +1,11 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
-import logo from './logo.svg';
+import {Layout, Menu } from 'antd';
+import {UserOutlined, FileDoneOutlined, TeamOutlined} from '@ant-design/icons';
 import './App.css';
+
+const {SubMenu} = Menu;
+const {Header, Content, Sider, Footer} = Layout;
 
 function App() {
   const [message, setMessage] = useState('오늘');
@@ -12,23 +16,59 @@ function App() {
   })
 
   return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">{message}</h1>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+        }}>
+          <div className="logo" />
+          <Menu
+              theme="dark"
+              mode="inline"
+              defaultSelectedKeys={['1']}
+              defaultOpenKeys={['sub1']}
           >
-            Learn React
-          </a>
-        </header>
-      </div>
+            <SubMenu
+                key="sub1"
+                title={<span><UserOutlined /><span>User</span></span>}
+            >
+              <Menu.Item key="3">Tom</Menu.Item>
+              <Menu.Item key="4">Bill</Menu.Item>
+              <Menu.Item key="5">Alex</Menu.Item>
+            </SubMenu>
+            <SubMenu
+                key="sub2"
+                title={<span><TeamOutlined /><span>Team</span></span>}
+            >
+              <Menu.Item key="6">Team 1</Menu.Item>
+              <Menu.Item key="8">Team 2</Menu.Item>
+            </SubMenu>
+            <Menu.Item key="9">
+              <FileDoneOutlined/>
+              <span>File</span>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+          <Header className="site-layout-background" style={{ padding: 0 }} >
+            <Menu mode="horizontal" defaultSelectedKeys={['2']}>
+              <Menu.Item key="1">nav 1</Menu.Item>
+              <Menu.Item key="2">nav 2</Menu.Item>
+              <Menu.Item key="3">nav 3</Menu.Item>
+            </Menu>
+          </Header>
+          <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
+            <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>
+              <br />
+              {message}
+              <br />
+            </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        </Layout>
+      </Layout>
   );
 }
 
